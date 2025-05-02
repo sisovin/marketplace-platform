@@ -14,6 +14,7 @@ model Vendor {
   password  String
   products  Product[]
   orders    Order[]
+  stripeAccountId String? @unique
 }
 
 model Product {
@@ -33,4 +34,5 @@ model Order {
   vendor     Vendor   @relation(fields: [vendorId], references: [id])
   productId  Int
   product    Product  @relation(fields: [productId], references: [id])
+  stripePaymentId String? @unique
 }

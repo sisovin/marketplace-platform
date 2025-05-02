@@ -10,7 +10,7 @@ const CreateShopPage = () => {
 
   const handleLogoUpload = async (file) => {
     const { data, error } = await supabase.storage
-      .from('logos')
+      .from('shop-logos')
       .upload(`public/${file.name}`, file);
 
     if (error) {

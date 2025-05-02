@@ -25,16 +25,34 @@ const CartPage = () => {
     fetchCartItems();
   }, []);
 
-  const handleQuantityChange = (id, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
-    );
+  const handleQuantityChange = async (id, quantity) => {
+    try {
+      const { data, error } = await supabase
+        .from('cart')
+        .update({ quantity })
+        .eq('id', id);
+      if (error) throw error;
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity } : item
+        )
+      );
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
-  const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const handleRemoveItem = async (id) => {
+    try {
+      const { error } = await supabase
+        .from('cart')
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+      setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleCheckout = async () => {
