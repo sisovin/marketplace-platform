@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for responsive mobile design */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .text-lg {
+    font-size: 1.125rem;
+  }
+
+  .hidden-mobile {
+    display: none;
+  }
+}

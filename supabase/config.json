@@ -1,0 +1,21 @@
+{
+  "project": {
+    "name": "Marketplace Platform",
+    "description": "Supabase configuration for the Marketplace Platform project",
+    "api": {
+      "url": "https://your-supabase-url.supabase.co",
+      "key": "your-supabase-key"
+    },
+    "auth": {
+      "redirectUrl": "https://your-redirect-url.com"
+    },
+    "storage": {
+      "buckets": [
+        {
+          "name": "product-images",
+          "public": true
+        }
+      ]
+    }
+  }
+}
