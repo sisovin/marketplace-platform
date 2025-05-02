@@ -8,13 +8,15 @@ datasource db {
 }
 
 model Vendor {
-  id        Int      @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String           @unique
   password  String
   products  Product[]
   orders    Order[]
+
   stripeAccountId String? @unique
+  stripeCustomer StripeCustomer?
 }
 
 model Product {
@@ -35,4 +37,11 @@ model Order {
   productId  Int
   product    Product  @relation(fields: [productId], references: [id])
   stripePaymentId String? @unique
+}
+
+model StripeCustomer {
+  id        Int    @id @default(autoincrement())
+  email     String @unique
+  vendorId  Int
+  vendor    Vendor @relation(fields: [vendorId], references: [id])
 }

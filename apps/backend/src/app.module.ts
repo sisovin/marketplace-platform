@@ -19,5 +19,9 @@ import { StripeModule } from './stripe/stripe.module';
     SupabaseModule,
     StripeModule,
   ],
+import { StripeModule } from './stripe/stripe.module';
+
+@Module({
+  imports: [AuthModule, VendorModule, ProductModule, OrderModule, StripeModule],
 })
 export class AppModule {}

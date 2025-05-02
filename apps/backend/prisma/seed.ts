@@ -93,6 +93,28 @@ async function main() {
       stripePaymentId: 'pi_1J2Y3Z4A5B6C7D8E9F0G1H2I3J4K5L6N',
     },
   });
+
+  const stripeCustomer1 = await stripe.customers.create({
+    email: vendor1.email,
+  });
+
+  const stripeCustomer2 = await stripe.customers.create({
+    email: vendor2.email,
+  });
+
+  await prisma.stripeCustomer.create({
+    data: {
+      email: vendor1.email,
+      vendorId: vendor1.id,
+    },
+  });
+
+  await prisma.stripeCustomer.create({
+    data: {
+      email: vendor2.email,
+      vendorId: vendor2.id,
+    },
+  });
 }
 
 main()

@@ -8,5 +8,6 @@ import { StripeModule } from '../stripe/stripe.module';
   imports: [SupabaseModule, StripeModule],
   providers: [OrderService],
   controllers: [OrderController],
+  imports: [StripeModule],
 })
 export class OrderModule {}
