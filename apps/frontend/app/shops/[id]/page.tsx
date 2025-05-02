@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { supabase } from '../../../lib/supabase';
-import { Card, Button } from '../../../components/ui';
+import ShopTemplate from './template/ShopTemplate';
 
-export default function ShopPage() {
+const ShopPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [shop, setShop] = useState(null);
@@ -35,20 +35,7 @@ export default function ShopPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return (
-    <div>
-      <h1>{shop.name}</h1>
-      <p>{shop.description}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {shop.products.map(product => (
-          <Card key={product.id}>
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>${product.price}</p>
-            <Button>Add to Cart</Button>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
+  return shop ? <ShopTemplate shop={shop} /> : <p>Shop not found</p>;
+};
+
+export default ShopPage;
