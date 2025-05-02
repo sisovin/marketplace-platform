@@ -3,8 +3,9 @@ import { AuthModule } from './auth/auth.module';
 import { VendorModule } from './vendor/vendor.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
-  imports: [AuthModule, VendorModule, ProductModule, OrderModule],
+  imports: [AuthModule, VendorModule, ProductModule, OrderModule, StripeModule],
 })
 export class AppModule {}

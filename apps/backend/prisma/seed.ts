@@ -1,7 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import Stripe from 'stripe';
 
 const prisma = new PrismaClient();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2020-08-27',
+});
 
 async function main() {
   const passwordHash = await bcrypt.hash('password123', 10);
@@ -63,6 +67,28 @@ async function main() {
       total: 40.0,
       vendorId: vendor2.id,
       productId: vendor2.products[0].id,
+    },
+  });
+
+  const stripeCustomer1 = await stripe.customers.create({
+    email: vendor1.email,
+  });
+
+  const stripeCustomer2 = await stripe.customers.create({
+    email: vendor2.email,
+  });
+
+  await prisma.stripeCustomer.create({
+    data: {
+      email: vendor1.email,
+      vendorId: vendor1.id,
+    },
+  });
+
+  await prisma.stripeCustomer.create({
+    data: {
+      email: vendor2.email,
+      vendorId: vendor2.id,
     },
   });
 }
