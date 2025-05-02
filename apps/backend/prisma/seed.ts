@@ -54,11 +54,34 @@ async function main() {
     },
   });
 
+  const stripeAccount1 = await stripe.accounts.create({
+    type: 'express',
+    country: 'US',
+    email: 'vendor1@example.com',
+  });
+
+  const stripeAccount2 = await stripe.accounts.create({
+    type: 'express',
+    country: 'US',
+    email: 'vendor2@example.com',
+  });
+
+  await prisma.vendor.update({
+    where: { id: vendor1.id },
+    data: { stripeAccountId: stripeAccount1.id },
+  });
+
+  await prisma.vendor.update({
+    where: { id: vendor2.id },
+    data: { stripeAccountId: stripeAccount2.id },
+  });
+
   await prisma.order.create({
     data: {
       total: 30.0,
       vendorId: vendor1.id,
       productId: vendor1.products[0].id,
+      stripePaymentId: 'pi_1J2Y3Z4A5B6C7D8E9F0G1H2I3J4K5L6M',
     },
   });
 
@@ -67,6 +90,7 @@ async function main() {
       total: 40.0,
       vendorId: vendor2.id,
       productId: vendor2.products[0].id,
+      stripePaymentId: 'pi_1J2Y3Z4A5B6C7D8E9F0G1H2I3J4K5L6N',
     },
   });
 

@@ -16,6 +16,76 @@
           "public": true
         }
       ]
+    },
+    "realtime": {
+      "enabled": true
+    },
+    "security": {
+      "rowLevelSecurity": {
+        "enabled": true,
+        "policies": [
+          {
+            "table": "Vendor",
+            "policies": [
+              {
+                "name": "Allow vendor to insert own data",
+                "action": "INSERT",
+                "condition": "auth.uid() = id"
+              },
+              {
+                "name": "Allow vendor to update own data",
+                "action": "UPDATE",
+                "condition": "auth.uid() = id"
+              },
+              {
+                "name": "Allow vendor to select own data",
+                "action": "SELECT",
+                "condition": "auth.uid() = id"
+              }
+            ]
+          },
+          {
+            "table": "Product",
+            "policies": [
+              {
+                "name": "Allow vendor to insert own products",
+                "action": "INSERT",
+                "condition": "auth.uid() = vendorId"
+              },
+              {
+                "name": "Allow vendor to update own products",
+                "action": "UPDATE",
+                "condition": "auth.uid() = vendorId"
+              },
+              {
+                "name": "Allow vendor to select own products",
+                "action": "SELECT",
+                "condition": "auth.uid() = vendorId"
+              }
+            ]
+          },
+          {
+            "table": "Order",
+            "policies": [
+              {
+                "name": "Allow vendor to insert own orders",
+                "action": "INSERT",
+                "condition": "auth.uid() = vendorId"
+              },
+              {
+                "name": "Allow vendor to update own orders",
+                "action": "UPDATE",
+                "condition": "auth.uid() = vendorId"
+              },
+              {
+                "name": "Allow vendor to select own orders",
+                "action": "SELECT",
+                "condition": "auth.uid() = vendorId"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }
